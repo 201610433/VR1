@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+     <meta charset="utf-8">
+
+   <title>Hello, WebVR! • A-Frame</title>
+
+     <meta name="description" content="Hello, WebVR! • A-Frame">
+
+     <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
+
+   </head>
+  <body>
+  
+    <script>
+      
+      var numberOfClicks=0;
+    
+    function sayHello()
+ 
+      {
+ 
+        alert("Hello!");
+ 
+              
+ 
+      }
+   
+     function alertUser(el)
+ 
+      {
+ 
+        numberOfClicks++;
+ 
+        //console.log("Hello!!. Number of Clicks: "+numberOfClicks+".");
+ 
+         console.log("I clicked a " + el.tagName+".");    
+ 
+            el.setAttribute('color', 'tomato');
+ 
+      }
+     
+      function makeInvisible(el)
+ 
+      {
+ 
+        el.setAttribute('visible', 'false');
+ 
+        
+ 
+        //var myShape= document.getElementById("disappear");
+ 
+        //myShape.setAttribute('visible', 'false');
+ 
+      }
+      
+       function invisibleCylinder()
+ 
+      {
+ 
+          var myShape= document.getElementById("disappear");
+ 
+        myShape.setAttribute('visible', 'false');
+ 
+      }
+       
+      function invisibleObject(myId)
+ 
+      {
+ 
+          var myShape= document.getElementById(myId);
+ 
+        myShape.setAttribute('visible', 'false');
+ 
+      }
+ 
+      
+ 
+      var yPos= 0.5;
+      var xPos= -1;
+      
+       function changePosition(element)
+ 
+      {
+ 
+         
+        element.setAttribute('position', {x:xPos, y:yPos, z:-3});
+        
+        yPos= yPos+0.1;
+        xPos= xPos-0.1;
+         
+      }   
+      
+      var growX, growY, growZ;
+      growX=1;
+      growY=1;
+      growZ=1;
+      
+      
+      function grow(elem)
+      {
+          elem.object3D.scale.set(growX, growY, growZ);
+          growX= growX+0.01;
+          growY= growY+1;
+          growZ= growZ+0.03;
+      
+      }
+      
+      var shrinkSize=1;
+      
+      function shrink(elem)
+      {
+          elem.object3D.scale.set(shrinkSize, shrinkSize, shrinkSize);
+          shrinkSize= shrinkSize-0.1;
+      }
+ 
+      var rotY=0;
+      function rotateY(elem)
+      
+      {
+        elem.setAttribute('rotation', {x:0, y:rotY, z:rotY});
+        rotY= rotY + 10; 
+      
+      
+      }
+  
+      
+      
+    </script>
+
+    <a-scene background="color: skyblue">
+
+      <a-entity position="0 0 1" scale="0.5 1 1">
+
+       	<a-camera wasd-controls look-controls>
+          
+                 <a-cursor color="yellow"></a-cursor>
+          
+       	</a-camera>
+        
+       </a-entity>
+      
+
+      <a-box  id="parentBox" visible="true" position="-2 3 -5" rotation="0 45 0" color="#4CC3D9" shadow>
+        
+        <a-box id="childBox" visible="true" position="0 0 0" rotation="0 45 0" color="tomato" shadow></a-box>
+        
+      </a-box>
+    
+     <a-sphere id="obj1" visible="true" onclick="changePosition(this);" position="0 1.25 -5" radius="1.25" color="#EF2D5E" shadow>
+       
+      </a-sphere>
+           <a-cylinder id="obj2"  onclick="grow(this)" position="1 0.75 -3" radius="0.5" height="1.5" color="#FFC65D" shadow></a-cylinder>
+      
+     <a-plane id="obj3"  onclick="shrink(this)" position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4" shadow></a-plane>  
+      
+     <a-text geometry="primitive:plane" onclick="changePosition(this)" value="Hello!" position="-2.5 1.5 -3" ></a-text>
+      
+     <a-cone onclick="rotateY(this)" color="tomato" radius-bottom="2" position="-2 0.5 -3" radius-top="0.5"></a-cone> 
+      
+  </a-scene>
+  </body>
+</html>
